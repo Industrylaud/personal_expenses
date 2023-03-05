@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TransactionForm extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
-  Function submitHandler;
+  final Function submitHandler;
 
   TransactionForm(this.submitHandler);
 
