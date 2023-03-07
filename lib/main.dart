@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/user_transactions.dart';
+import 'models/transaction.dart';
+import 'widgets/transaction_form.dart';
+import 'widgets/transactions_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +16,51 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransactions = [
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      transactionDate: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Weekly groceries',
+      amount: 15.65,
+      transactionDate: DateTime.now(),
+    ),
+  ];
+
+  void _addNewTransaction(String title, double amount) {
+    setState(() {
+      _userTransactions.add(new Transaction(
+        title: title,
+        amount: amount,
+        transactionDate: DateTime.now(),
+        id: DateTime.now().toString(),
+      ));
+    });
+  }
+
+  void _showTransactionForm(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          child: TransactionForm(_addNewTransaction),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +68,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => _showTransactionForm(context),
             icon: Icon(Icons.add),
           ),
         ],
@@ -40,13 +86,13 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            UserTransactions(),
+            TransactionList(_userTransactions),
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _showTransactionForm(context),
         child: Icon(Icons.add),
       ),
     );
