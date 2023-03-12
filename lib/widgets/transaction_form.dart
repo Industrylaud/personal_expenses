@@ -13,7 +13,7 @@ class _TransactionFormState extends State<TransactionForm> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  void submitData() {
+  void _submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
@@ -39,22 +39,33 @@ class _TransactionFormState extends State<TransactionForm> {
               TextField(
                 decoration: InputDecoration(labelText: 'Title'),
                 controller: titleController,
-                onSubmitted: (_) => submitData(),
+                onSubmitted: (_) => _submitData(),
               ),
               TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(labelText: 'Amount'),
                 controller: amountController,
-                onSubmitted: (_) => submitData(),
+                onSubmitted: (_) => _submitData(),
               ),
-              TextButton(
-                onPressed: submitData,
-                child: Text(
-                  'Add transaction',
-                  style: TextStyle(
-                    color: Colors.purple,
-                  ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Text('No date chosen'),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Choose date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              ElevatedButton(
+                onPressed: _submitData,
+                child: Text('Add transaction'),
+                style: Theme.of(context).elevatedButtonTheme.style,
               )
             ],
           ),

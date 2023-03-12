@@ -20,6 +20,11 @@ class MyApp extends StatelessWidget {
               fontSize: 18,
             ),
           ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+        ),
+      ),
       appBarTheme: AppBarTheme(
         titleTextStyle: TextStyle(
           fontFamily: 'OpenSans',
