@@ -77,12 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     setState(() {
       _userTransactions.add(new Transaction(
         title: title,
         amount: amount,
-        transactionDate: DateTime.now(),
+        transactionDate: chosenDate,
         id: DateTime.now().toString(),
       ));
     });

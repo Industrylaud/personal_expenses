@@ -16,14 +16,20 @@ class _TransactionFormState extends State<TransactionForm> {
   DateTime _selectedDate;
 
   void _submitData() {
-    final enteredTitle = _titleController.text;
-    final enteredAmount = double.parse(_amountController.text);
-
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (_amountController.text.isEmpty ||
+        _titleController.text.isEmpty ||
+        _selectedDate == null) {
       return;
     }
 
-    widget.submitHandler(enteredTitle, enteredAmount);
+    final enteredTitle = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
+
+    if (enteredAmount <= 0) {
+      return;
+    }
+
+    widget.submitHandler(enteredTitle, enteredAmount, _selectedDate);
 
     Navigator.of(context).pop();
   }
