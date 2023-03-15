@@ -106,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _showTransactionForm(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (_) {
         return GestureDetector(
