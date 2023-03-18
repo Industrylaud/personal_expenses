@@ -21,6 +21,11 @@ class MyApp extends StatelessWidget {
       primarySwatch: Colors.purple,
       errorColor: Colors.red,
       fontFamily: 'Quicksand',
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.red,
+        ),
+      ),
       textTheme: ThemeData.light().textTheme.copyWith(
             titleLarge: TextStyle(
               fontFamily: 'Quicksand',
