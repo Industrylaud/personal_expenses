@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -90,13 +93,21 @@ class _TransactionFormState extends State<TransactionForm> {
                               : 'Picked date: ${DateFormat.yMMMd().format(_selectedDate)}',
                         ),
                       ),
-                      TextButton(
-                        onPressed: _presentDatePicker,
-                        child: Text(
-                          'Choose date',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                      Platform.isIOS
+                          ? CupertinoButton(
+                              onPressed: _presentDatePicker,
+                              child: Text(
+                                'Choose date',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          : TextButton(
+                              onPressed: _presentDatePicker,
+                              child: Text(
+                                'Choose date',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
                     ],
                   ),
                 ),
