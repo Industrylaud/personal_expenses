@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'adaptive_text_button.dart';
+
 class TransactionForm extends StatefulWidget {
   final Function submitHandler;
 
@@ -93,21 +95,7 @@ class _TransactionFormState extends State<TransactionForm> {
                               : 'Picked date: ${DateFormat.yMMMd().format(_selectedDate)}',
                         ),
                       ),
-                      Platform.isIOS
-                          ? CupertinoButton(
-                              onPressed: _presentDatePicker,
-                              child: Text(
-                                'Choose date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          : TextButton(
-                              onPressed: _presentDatePicker,
-                              child: Text(
-                                'Choose date',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
+                      AdaptiveTextButton('Choose Date', _presentDatePicker)
                     ],
                   ),
                 ),
