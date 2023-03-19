@@ -9,7 +9,7 @@ import 'adaptive_text_button.dart';
 class TransactionForm extends StatefulWidget {
   final Function submitHandler;
 
-  TransactionForm(this.submitHandler);
+  const TransactionForm(this.submitHandler);
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -74,13 +74,17 @@ class _TransactionFormState extends State<TransactionForm> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  decoration: InputDecoration(labelText: 'Title'),
+                  decoration: const InputDecoration(
+                    labelText: 'Title',
+                  ),
                   controller: _titleController,
                   onSubmitted: (_) => _submitData(),
                 ),
                 TextField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Amount'),
+                  decoration: const InputDecoration(
+                    labelText: 'Amount',
+                  ),
                   controller: _amountController,
                   onSubmitted: (_) => _submitData(),
                 ),
@@ -101,7 +105,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
                 ElevatedButton(
                   onPressed: _submitData,
-                  child: Text('Add transaction'),
+                  child: const Text('Add transaction'),
                   style: Theme.of(context).elevatedButtonTheme.style,
                 )
               ],

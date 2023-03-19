@@ -132,23 +132,23 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final PreferredSizeWidget appBar = Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text('Personal Expenses'),
+            middle: const Text('Personal Expenses'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
                   onTap: () => _showTransactionForm(context),
-                  child: Icon(CupertinoIcons.add),
+                  child: const Icon(CupertinoIcons.add),
                 ),
               ],
             ),
           )
         : AppBar(
-            title: Text('Personal Expenses'),
+            title: const Text('Personal Expenses'),
             actions: [
               IconButton(
                 onPressed: () => _showTransactionForm(context),
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
               ),
             ],
           );
@@ -216,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton(
               onPressed: () => _showTransactionForm(context),
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
           );
   }
