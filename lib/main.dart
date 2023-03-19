@@ -99,6 +99,74 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(
+      double reserveHeight, Widget transactionListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Show chart',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          )
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: reserveHeight * 0.7,
+              child: Chart(_recentTransactions),
+            )
+          : transactionListWidget
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+      double reserveHeight, Widget transactionListWidget) {
+    return [
+      Container(
+        height: reserveHeight * 0.3,
+        child: Chart(_recentTransactions),
+      ),
+      transactionListWidget
+    ];
+  }
+
+  Widget _buildCupertinoAppBar() {
+    return CupertinoNavigationBar(
+      middle: const Text('Personal Expenses'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () => _showTransactionForm(context),
+            child: const Icon(CupertinoIcons.add),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMaterialAppBar() {
+    return AppBar(
+      title: const Text('Personal Expenses'),
+      actions: [
+        IconButton(
+          onPressed: () => _showTransactionForm(context),
+          icon: const Icon(Icons.add),
+        ),
+      ],
+    );
+  }
+
   void _showTransactionForm(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -117,28 +185,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: const Text('Personal Expenses'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: () => _showTransactionForm(context),
-                  child: const Icon(CupertinoIcons.add),
-                ),
-              ],
-            ),
-          )
-        : AppBar(
-            title: const Text('Personal Expenses'),
-            actions: [
-              IconButton(
-                onPressed: () => _showTransactionForm(context),
-                icon: const Icon(Icons.add),
-              ),
-            ],
-          );
+    final PreferredSizeWidget appBar =
+        Platform.isIOS ? _buildCupertinoAppBar() : _buildMaterialAppBar();
 
     final reserveHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
@@ -155,37 +203,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Show chart',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  )
-                ],
-              ),
+              ..._buildLandscapeContent(reserveHeight, transactionListWidget),
             if (!isLandscape)
-              Container(
-                height: reserveHeight * 0.3,
-                child: Chart(_recentTransactions),
-              ),
-            if (!isLandscape) transactionListWidget,
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height: reserveHeight * 0.7,
-                      child: Chart(_recentTransactions),
-                    )
-                  : transactionListWidget
+              ..._buildPortraitContent(reserveHeight, transactionListWidget),
           ],
         ),
       ),
